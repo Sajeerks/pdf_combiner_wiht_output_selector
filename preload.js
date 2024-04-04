@@ -61,11 +61,26 @@ contextBridge.exposeInMainWorld('ipcRenderExposingToMain', {
 
 getInputFilePathFunc:({inputFilepath})=>ipcRenderer.send("getinputfilepath", {inputFilepath}),
    
+openFileDiaglogBoxInMain:()=>ipcRenderer.send("openTheContinousFileDialog"), 
+
 
 
 
 //form Main to redner 
 
 onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value))
+,
+
+
+chekforMoreUpatesinWinRender: (callback) => ipcRenderer.on('checkForMoreFilePaths', (_event, value) => callback(value)), 
+
+
+
+keppLoopingInFrontend:()=>ipcRenderer.send("keepLoopingToGetMoreFiles"), 
+
+
+
+
+
 
 })

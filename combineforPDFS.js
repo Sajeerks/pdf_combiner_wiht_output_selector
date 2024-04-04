@@ -76,3 +76,53 @@ window.ipcRenderExposingToMain.onUpdateCounter((value) => {
     counter.innerText = newValue.toString()
     // window.electronAPI.counterValue(newValue)
   })
+
+
+  const openDiaglogBoxbtn = document.getElementById("openDiaglogBoxbtn")
+
+  openDiaglogBoxbtn.addEventListener("click", ()=>{
+
+
+    window.ipcRenderExposingToMain.openFileDiaglogBoxInMain( )
+
+  })
+
+
+  const checkforMoreFilePathsButtom = document.getElementById("checkforMoreFilePathsButtom")
+
+  checkforMoreFilePathsButtom.addEventListener("click", ()=>{
+    // window.ipcRenderExposingToMain.openFileDiaglogBoxInMain( )
+
+
+  window.ipcRenderExposingToMain.keppLoopingInFrontend( )
+
+
+  
+
+    
+
+  })
+
+
+
+
+  const fileLister = document.getElementById("fileLister")
+  window.ipcRenderExposingToMain.chekforMoreUpatesinWinRender( (value)=>{
+    console.log("valeeeeeeeee======" , value);
+    while (fileLister.firstChild) {
+        fileLister.removeChild(fileLister.firstChild);
+      }
+
+    for (let i = 0; i < value.length; i++) {
+        let li = document.createElement("li")
+        li.innerText =  value[i];
+        fileLister.appendChild(li)
+        
+    }
+   
+
+
+    
+
+  })
+
