@@ -7,6 +7,20 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 
 
+const { PDFDocument, StandardFonts, rgb } =require(  'pdf-lib')
+const fs = require("fs")
+// const existingPdfBytes = await fs.readFileSync(args[i][0])
+// const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+contextBridge.exposeInMainWorld('calcPagesInPDF', {
+ 
+  getPagnos: async(args) => {
+    const existingPdfBytes = await fs.readFileSync(args)
+   const pdfDoc = await PDFDocument.load(existingPdfBytes)
+   console.log(pdfDoc.getPageCount());
+   return pdfDoc.getPageCount()
+  }
+})
 
 
 
@@ -27,6 +41,13 @@ contextBridge.exposeInMainWorld('ipcRenderForGettingValuesinInputBox', {
     // onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value))
 
     getArrayofFilePathsInRender: async (callback) => ipcRenderer.on('passLengthAndName', (_event, value) =>  callback(value))
+
+    // const existingPdfBytes = await fs.readFileSync(args[i][0])
+    // const pdfDoc = await PDFDocument.load(existingPdfBytes)
+    // const pages = pdfDoc.getPages()
+    
+
+
     
     })
 

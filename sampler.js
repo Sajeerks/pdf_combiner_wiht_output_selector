@@ -1,3 +1,5 @@
+
+
 // const inputFirst = document.getElementById("inputFirst")
 const arranger_div = document.getElementById("arranger_div")
 const MastercombineFilesButtom = document.getElementById("MastercombineFilesButtom")
@@ -16,12 +18,15 @@ window.ipcRenderForGettingValuesinInputBox.getArrayofFilePathsInRender ( async (
     console.log("valeeeeeeeee======" , value);
 
       for (let i = 0; i < value.length; i++) {
+
+    
+   let lastPageNo  = await window.calcPagesInPDF.getPagnos(value[i])
        
        let createdinput =     document.createElement("input")
        createdinput.setAttribute("id", `inputPageNoID-${i}`)
        createdinput.setAttribute("data-empid" , value[i])
 
-       createdinput.setAttribute("value", "1")
+       createdinput.setAttribute("value", "1-"+lastPageNo)
        let createdbutton =     document.createElement("button")
        createdbutton.innerText = `extract-button${i}`
        createdbutton.setAttribute("id",`extractorbtn-${i}`)

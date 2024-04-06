@@ -4,6 +4,7 @@
 
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
       const element = document.getElementById(selector)
@@ -51,6 +52,7 @@ contextBridge.exposeInMainWorld('Toastify', {
   toast:(options) => Toasitfy(options).showToast()
 
 })
+
 
 
 
