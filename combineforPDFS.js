@@ -55,7 +55,7 @@ function alertSuccess(message){
 
     Toastify.toast({
         text:message,
-        duraation:20000,
+        duraation:15000,
         close:false,
         style:{
             background:"green",
