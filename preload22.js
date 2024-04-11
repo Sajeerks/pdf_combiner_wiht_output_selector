@@ -71,5 +71,14 @@ contextBridge.exposeInMainWorld('ipcRenderForGettingValuesinInputBox', {
     
         transferTheFinalArrayTOMainForCombining :(masterArrayForcombning)=>ipcRenderer.send("startCombiningALlPdfFilesFinally",masterArrayForcombning),
 
+
+
+
+
+
+      
+        resetToTheBasefile :(masterlisttibase)=>ipcRenderer.send("resetToTheBaseInMainJS",masterlisttibase)
+
+
         
         })

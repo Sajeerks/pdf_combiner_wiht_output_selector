@@ -120,5 +120,15 @@ window.passingTheLastArry.transferTheFinalArrayTOMainForCombining(masterArrayFor
 
   })
 
+  const resetTotheFrontpage = document.getElementById("resetTotheFrontpage")
 
 
+  resetTotheFrontpage.addEventListener('click', ()=>{
+
+
+    
+ 
+
+    window.passingTheLastArry.resetToTheBasefile("this is thd data send to main js form samplerjs ")
+
+  })

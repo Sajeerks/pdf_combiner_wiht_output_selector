@@ -55,7 +55,7 @@ function alertSuccess(message){
 
     Toastify.toast({
         text:message,
-        duraation:5000,
+        duraation:20000,
         close:false,
         style:{
             background:"green",
@@ -126,3 +126,34 @@ window.ipcRenderExposingToMain.onUpdateCounter((value) => {
 
   })
 
+
+  const Reset_Button = document.getElementById("Reset_Button")
+
+
+  Reset_Button.addEventListener('click', ()=>{
+
+
+    
+    window.ipcRenderExposingToMain.resetTheForm( )
+  })
+
+
+  
+
+
+  window.ipcRenderExposingToMain.errofoundInMainwhileCompiling( (value)=>{
+    console.log("valeeeeeeeee======" , value);
+      alertError(value.message)
+
+    
+
+  })
+
+
+  window.ipcRenderExposingToMain.successAfterCombinding( (value)=>{
+    console.log("valeeeeeeeee======" , value);
+    //   alertSuccess(`files no nos ${Object.keys(value)} is completwed`)
+alertSuccess(` ${value} no of file combined`)
+    
+
+  })

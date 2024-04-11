@@ -68,6 +68,12 @@ openFileDiaglogBoxInMain:()=>ipcRenderer.send("openTheContinousFileDialog"),
 
 
 
+resetTheForm:()=>ipcRenderer.send("resetTheFormInMainJS"), 
+
+
+
+
+
 //form Main to redner 
 
 onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value))
@@ -81,8 +87,10 @@ chekforMoreUpatesinWinRender: (callback) => ipcRenderer.on('checkForMoreFilePath
 keppLoopingInFrontend:()=>ipcRenderer.send("keepLoopingToGetMoreFiles"), 
 
 
+errofoundInMainwhileCompiling: (callback) => ipcRenderer.on('errorFOundwhiel', (_event, value) => callback(value)), 
 
 
+successAfterCombinding: (callback) => ipcRenderer.on('successfullyCombinedFiles', (_event, value) => callback(value)), 
 
 
 })
