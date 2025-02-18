@@ -92,5 +92,9 @@ errofoundInMainwhileCompiling: (callback) => ipcRenderer.on('errorFOundwhiel', (
 
 successAfterCombinding: (callback) => ipcRenderer.on('successfullyCombinedFiles', (_event, value) => callback(value)), 
 
+updateFrontEndAboutOutPutPaths: (callback) => ipcRenderer.on('updateOutOutPathInFrontEnd', (_event, value) => callback(value)), 
+
+
+
 
 })

@@ -5,22 +5,24 @@ const counter = document.getElementById("counter")
 
 
 
-combinerbtnIpnut.addEventListener("change",async (e)=>{
-    // console.log(e);
-
-    if(! e.target.files[0]) return 
+combinerbtnIpnut.addEventListener("click",async (e)=>{
+    console.log(e);
+console.log(e.target);
+    // if(! e.target.files[0]) return 
     // console.log("e.target.files--", e.target.files[0]);
-const firstExelFile = await e.target.files[0]
+// const firstExelFile = await e.target.files[0]
 
 
 // console.log({firstExelFile});
 // console.log(firstExelFile.path);
 
-alertSuccess("file chooosedn="+  firstExelFile.path )
-
+// alertSuccess("file chooosedn="+  firstExelFile.path )
+alertSuccess("file chooosedn="+ "send")
     // console.log("cleddddddddddddd");
 
-     window.ipcRenderExposingToMain.getInputFilePathFunc( {inputFilepath:firstExelFile.path})
+    //  window.ipcRenderExposingToMain.getInputFilePathFunc( {inputFilepath:firstExelFile.path})
+     window.ipcRenderExposingToMain.getInputFilePathFunc( {inputFilepath:"sssssssssss"})
+     
 })
 
 
@@ -157,3 +159,17 @@ alertSuccess(` ${value} no of file combined`)
     
 
   })
+
+
+  window.ipcRenderExposingToMain.updateFrontEndAboutOutPutPaths( (value)=>{
+    console.log("valeeeeeeeee======" , value);
+    //   alertSuccess(`files no nos ${Object.keys(value)} is completwed`)
+alertSuccess(` ${value} no of file combined`)
+
+counter.innerText = value.toString()
+    
+
+  })
+
+
+  

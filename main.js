@@ -13,6 +13,10 @@ var Excel = require("exceljs");
 let inputFilepath =
   "C:\\Users\\alist\\OneDrive - Kentech Group DMCC\\Desktop\\outttttt";
 
+
+
+
+
 let ArrayOFALLFIlePaths = [];
 let arrOFwindows = [];
 let finalOutputObject = {}
@@ -60,7 +64,18 @@ function createWindow() {
 
   ipcMain.on("getinputfilepath", async (event, args) => {
     // console.log("event== getinputfilepath==",event);
-    // console.log("args==getinputfilepath==",args);
+    console.log("args==getinputfilepath==",args);
+    dialog.showOpenDialog(win, {
+      properties: ['openFile', 'openDirectory']
+    }).then(result => {
+      console.log(result.canceled)
+      console.log(result.filePaths)
+      inputFilepath = result.filePaths || "C:\out_pdf"
+      win.webContents.send("updateOutOutPathInFrontEnd", inputFilepath);
+    }).catch(err => {
+      console.log(err)
+    })
+    
 
     console.log(args);
 
