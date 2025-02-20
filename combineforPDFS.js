@@ -2,6 +2,17 @@ const combinerbtnIpnut = document.getElementById("combinerbtn")
 const counter = document.getElementById("counter")
 
 
+const masterCombilerButton = document.getElementById("masterCombilerButton")
+
+masterCombilerButton.addEventListener("click" ,async()=>{
+  alertSuccess("masterfile seelcted="+ "send")
+
+
+  window.ipcRenderExposingToMain.getMasterFolderForCombiling( {masterfolderpath:"ggggggggggggggggg"})
+})
+
+
+
 
 
 

@@ -27,6 +27,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electronmon": "^2.0.2",
     "exceljs": "^4.4.0",
+    "node-recursive-directory": "^1.2.3",
     "pdf-lib": "^1.17.1",
     "sweetalert2": "^11.10.7",
     "toastify-js": "^1.12.0"

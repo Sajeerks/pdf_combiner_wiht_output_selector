@@ -4,16 +4,20 @@ const path = require("node:path");
 
 const os = require("os");
 const fs = require("fs");
-const { PDFDocument, StandardFonts, rgb } = require("pdf-lib");
+const { degrees,grayscale, PDFDocument, rgb, StandardFonts , ImageAlignment, values } = require('pdf-lib');
+
 // const Swal = require('sweetalert2')
 // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
 
 var Excel = require("exceljs");
+const scanDirectory = require("node-recursive-directory");
 
 let inputFilepath =
   "C:\\Users\\alist\\OneDrive - Kentech Group DMCC\\Desktop\\outttttt";
 
+let masterCombineFolderOutputPath
 
+let MasterPDFALLFilesInFolderArray = []
 
 
 
@@ -128,14 +132,142 @@ function createWindow() {
     // console.log("fffffffffffffffffffffffffffffffffffffffffff");
   });
 
-  ipcMain.on("resetTheFormInMainJS", async (event, args) => {
-    console.log("calling final reseting the form ");
 
-    ArrayOFALLFIlePaths = [];
 
-    win.webContents.send("checkForMoreFilePaths", ArrayOFALLFIlePaths);
+
+  
+
+  ipcMain.on("masterfolderpath", async (event, args) => {
+    console.log("calling final masterfolderpath the form ");
+
+
+
+    dialog.showOpenDialog(win, {
+      properties: ['openFile', 'openDirectory']
+    }).then(result => {
+      console.log(result.canceled)
+      console.log(result.filePaths)
+      masterCombineFolderOutputPath = result.filePaths || "C:\out_pdf"
+      // win.webContents.send("updateOutOutPathInFrontEnd", inputFilepath);
+
+         console.log({masterCombineFolderOutputPath});
+         (async () => {
+          try {
+              const files = await scanDirectory(masterCombineFolderOutputPath);
+              // console.log(files);
+
+              files.forEach(file => {
+                console.log(file);
+                let fileext = file.split(".").pop()
+                console.log({fileext});
+                if (fileext=== "pdf"){
+                  MasterPDFALLFilesInFolderArray.push(file)
+                }
+                
+               });
+               console.log(MasterPDFALLFilesInFolderArray);
+                
+
+
+
+               const pdfDoc2 = await PDFDocument.create();
+               for (let i = 0; i < MasterPDFALLFilesInFolderArray.length; i++) {
+                const existingPdfBytes = await fs.readFileSync(MasterPDFALLFilesInFolderArray[i]);
+                const pdfDoc = await PDFDocument.load(existingPdfBytes);
+                const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+                const pages = pdfDoc.getPageCount()
+                console.log({pages});
+                 for (let j = 0; j < pages; j++) {
+                  const [firstDonorPage] = await pdfDoc2.copyPages(pdfDoc,[j]);
+                  pdfDoc2.addPage(firstDonorPage)
+
+           const pagesOfInterest = pdfDoc2.getPages()
+         const lastpage = pagesOfInterest[pagesOfInterest.length-1]
+
+         const { width, height } = lastpage.getSize()
+
+                 let nameArr = MasterPDFALLFilesInFolderArray[i].split("/")   
+                 let name = nameArr[nameArr.length-2]
+                
+                    console.log({name});
+                  lastpage.drawText("QMIS NO :"+name, {
+                    x: width*.301,
+                    y:  height*.945,
+                    size: 30,
+                    font: helveticaFont,
+                    color: rgb(0, 0, 0),
+                    rotate: degrees(0),
+                  })
+                
+                  lastpage.drawRectangle({
+                    x: width*.3,
+                    y:  height*.94,
+                    width: 160+((name.length)*17.5),
+                
+                    height: 40,
+                    rotate: degrees(0),
+                    borderWidth: 5,
+                    borderColor: rgb(0, 0, 0),
+                    color: rgb(0, 0, 0),
+                    opacity: 0,
+                    borderOpacity: 1,
+                  })
+
+
+
+                  
+                 }
+                 
+             
+
+
+               }
+              //  const pdfDocxx = await PDFDocument.load(finalbufferArray[n][1]);
+
+               fs.writeFile(
+                masterCombineFolderOutputPath + "//" + "mater_final_array" + ".pdf",
+                await pdfDoc2.save(),
+                (err) => {
+                  if (err) console.log(err);
+                  else {
+                    // console.log("mater file writing completed\n");
+                    // console.log("The written has the following contents:");
+                    // let win = new BrowserWindow({
+                    //                 webPreferences: {
+                    //                   plugins: true
+                    //                 }
+                    //               })
+                    //               win.loadURL( direcmaster+"//"+"FINAL"+'--output.pdf')
+                  }
+                }
+              )
+           await   win.loadFile( masterCombineFolderOutputPath + "//" + "mater_final_array" + ".pdf")
+            
+              
+          } catch (err) {
+              console.error(err);
+          }
+      })();
+  
+          
+
+
+
+    }).catch(err => {
+      console.log(err)
+    })
+
+
+    // win.webContents.send("checkForMoreFilePaths", ArrayOFALLFIlePaths);
   });
+
+
 }
+
+
+
+
+
 
 app.whenReady().then(() => {
   createWindow();

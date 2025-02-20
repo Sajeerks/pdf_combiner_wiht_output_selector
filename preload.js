@@ -62,6 +62,17 @@ contextBridge.exposeInMainWorld('ipcRenderExposingToMain', {
 //  on:(channel, func)=> ipcRenderer.on(channel, (event, ...args)=>func(...args))
 
 getInputFilePathFunc:({inputFilepath})=>ipcRenderer.send("getinputfilepath", {inputFilepath}),
+
+//masterfolder
+
+getMasterFolderForCombiling:({masterfolderpath})=>ipcRenderer.send("masterfolderpath", {masterfolderpath}),
+
+
+
+
+
+
+
    
 openFileDiaglogBoxInMain:()=>ipcRenderer.send("openTheContinousFileDialog"), 
 
