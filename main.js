@@ -161,10 +161,11 @@ function createWindow() {
                 let fileext = file.split(".").pop()
                 console.log({fileext});
                 if (fileext=== "pdf"){
-                  MasterPDFALLFilesInFolderArray.push(file)
+                   MasterPDFALLFilesInFolderArray.push(file)
                 }
                 
                });
+               MasterPDFALLFilesInFolderArray = MasterPDFALLFilesInFolderArray.sort(function(a, b){return a.split("/").length - b.split("/").length })
                console.log(MasterPDFALLFilesInFolderArray);
                 
 
@@ -179,7 +180,7 @@ function createWindow() {
                 console.log({pages});
                  for (let j = 0; j < pages; j++) {
                   const [firstDonorPage] = await pdfDoc2.copyPages(pdfDoc,[j]);
-                  pdfDoc2.addPage(firstDonorPage)
+                 await pdfDoc2.addPage(firstDonorPage)
 
            const pagesOfInterest = pdfDoc2.getPages()
          const lastpage = pagesOfInterest[pagesOfInterest.length-1]
@@ -224,7 +225,7 @@ function createWindow() {
                }
               //  const pdfDocxx = await PDFDocument.load(finalbufferArray[n][1]);
 
-               fs.writeFile(
+            await   fs.writeFile(
                 masterCombineFolderOutputPath + "//" + "mater_final_array" + ".pdf",
                 await pdfDoc2.save(),
                 (err) => {
