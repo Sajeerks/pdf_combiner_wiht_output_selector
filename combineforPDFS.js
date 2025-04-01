@@ -1,5 +1,6 @@
 const combinerbtnIpnut = document.getElementById("combinerbtn")
 const counter = document.getElementById("counter")
+const forEachRFiCreatePDfFIle = document.getElementById("forEachRFiCreatePDfFIle")
 
 
 const masterCombilerButton = document.getElementById("masterCombilerButton")
@@ -10,6 +11,21 @@ masterCombilerButton.addEventListener("click" ,async()=>{
 
   window.ipcRenderExposingToMain.getMasterFolderForCombiling( {masterfolderpath:"ggggggggggggggggg"})
 })
+
+
+
+
+
+forEachRFiCreatePDfFIle.addEventListener("click" ,async()=>{
+  alertSuccess("forEachRFiCreatePDfFIle ="+ "send")
+
+
+  window.ipcRenderExposingToMain.getFolderPathforEachPDFRFI( {masterfolderpath:"ccccccccccccccccccccccccccccccc"})
+})
+
+
+
+
 
 
 

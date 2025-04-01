@@ -69,7 +69,7 @@ getMasterFolderForCombiling:({masterfolderpath})=>ipcRenderer.send("masterfolder
 
 
 
-
+getFolderPathforEachPDFRFI:({masterfolderpath})=>ipcRenderer.send("masterfolderpathForEAchRFIPDFFILE", {masterfolderpath}),
 
 
 
